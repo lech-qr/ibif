@@ -26,8 +26,7 @@ class HomepageBoxes extends Module
     {
         if (!parent::install() ||
             !$this->installDatabase() ||
-            !$this->registerHook('displayHome') ||
-            !$this->installTab('AdminHomepageBoxes', 'Homepage Boxes')
+            !$this->registerHook('displayHome')
         ) {
             return false;
         }
@@ -165,8 +164,6 @@ class HomepageBoxes extends Module
     
         return $output . $this->renderForm();
     }
-    
-    
 
     private function processForm()
     {
@@ -202,7 +199,7 @@ class HomepageBoxes extends Module
         ));
     
         return $this->context->smarty->fetch($this->local_path . 'views/templates/admin/configure.tpl');
-    }    
+    }   
 
     public function hookDisplayHome($params)
     {

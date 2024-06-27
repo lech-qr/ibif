@@ -1,4 +1,4 @@
- <div class="panel">
+<div class="panel">
     <form action="{$currentIndex}&configure={$name}&token={$token}" method="post" enctype="multipart/form-data">
         <input type="hidden" style="display: inline-block; width: 100%" name="HOMEPAGEBOXES" id="HOMEPAGEBOXES" value="{$boxes_json|escape:'html'}">
 
@@ -21,6 +21,7 @@
 	    // Display existing boxes
             let boxDiv = document.createElement('div');
             boxDiv.classList.add('box', 'col-md-6', 'col-sm-12');
+            boxDiv.setAttribute('data-id', box.id_box);
 
             let innerBox = document.createElement('div');
 
@@ -29,21 +30,25 @@
 
             let titleInput = document.createElement('input');
             titleInput.type = 'text';
+            //titleInput.name = 'box_title';
             titleInput.value = box.title;
             titleInput.placeholder = '{l s="Box Title"}';
 
             let imgInput = document.createElement('input');
+            //imgInput.name = 'box_background_image';
             imgInput.type = 'file';
 
             let imgHiddenInput = document.createElement('input');
             imgHiddenInput.type = 'hidden';
 
             let linkSelect = document.createElement('select');
+            //linkSelect.name = 'box_link';
+
             let categories = JSON.parse({$categories|json_encode});
             let products = JSON.parse({$products|json_encode});
             let cmsPages = JSON.parse({$cms_pages|json_encode});
 
-            // console.log(JSON.parse({$products|json_encode}))
+            console.log(JSON.parse({$products|json_encode}))
 
             linkSelect.appendChild(new Option('{l s="Select Link"}', ''));
 
@@ -80,13 +85,13 @@
             });
             linkSelect.appendChild(optgroupCMS);
 
-            let removeButton = document.createElement('button');
-            removeButton.type = 'button';
-            removeButton.classList.add('btn', 'btn-danger', 'pull-right');
-            removeButton.innerHTML = '{l s="Remove"}';
-            removeButton.addEventListener('click', function() {
-                container.removeChild(boxDiv);
-            });
+            //let removeButton = document.createElement('button');
+            //removeButton.type = 'button';
+            //removeButton.classList.add('btn', 'btn-danger', 'pull-right');
+            //removeButton.innerHTML = '{l s="Remove"}';
+            //removeButton.addEventListener('click', function() {
+            //    container.removeChild(boxDiv);
+            //});
 
             boxDiv.appendChild(innerBox);
 
@@ -102,7 +107,7 @@
             innerBox.appendChild(imgInput);
             innerBox.appendChild(imgHiddenInput);
             innerBox.appendChild(linkSelect);
-            innerBox.appendChild(removeButton);           
+            //innerBox.appendChild(removeButton);           
 
             container.appendChild(boxDiv);
         }
@@ -116,7 +121,7 @@
             createBoxElement({ title: '', background_image: '', link: '' });
             $('.box input:nth-of-type(1)').attr('name', 'box_title'); 
             $('.box input:nth-of-type(2)').attr('name', 'box_background_image');
-            $('.box select:nth-of-type(1)').attr('name', 'box_link');
+            $('.box select:nth-of-type(1)').attr('name', 'box_link');            
             $('.box h3').remove();
             $('.box .btn-danger').remove();
             boxes.forEach(function(box) {
